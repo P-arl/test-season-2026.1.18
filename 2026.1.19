@@ -1,0 +1,101 @@
+import { useState } from 'react';
+
+export default function SeasonalSelector() {
+  const [season, setSeason] = useState('');
+  const [time, setTime] = useState('');
+  const [weather, setWeather] = useState('');
+
+  const seasons = ['春', '夏', '秋', '冬'];
+  const times = ['朝', '昼', '夜'];
+  const weathers = ['晴れ', '曇り', '雨'];
+
+  const getSeasonText = (s) => s + 'の';
+  const getTimeText = (t) => t + 'の';
+  const getWeatherText = (w) => `天気は${w}です`;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+          シーン選択
+        </h1>
+        
+        <div className="bg-white rounded-lg shadow-lg p-8 space-y-8">
+          {/* 季節 */}
+          <div>
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">季節</h2>
+            <div className="grid grid-cols-4 gap-3">
+              {seasons.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setSeason(s)}
+                  className={`py-3 px-4 rounded-lg font-medium transition-all ${
+                    season === s
+                      ? 'bg-blue-500 text-white shadow-md scale-105'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 時間帯 */}
+          <div>
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">時間帯</h2>
+            <div className="grid grid-cols-3 gap-3">
+              {times.map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setTime(t)}
+                  className={`py-3 px-4 rounded-lg font-medium transition-all ${
+                    time === t
+                      ? 'bg-green-500 text-white shadow-md scale-105'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 天気 */}
+          <div>
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">天気</h2>
+            <div className="grid grid-cols-3 gap-3">
+              {weathers.map((w) => (
+                <button
+                  key={w}
+                  onClick={() => setWeather(w)}
+                  className={`py-3 px-4 rounded-lg font-medium transition-all ${
+                    weather === w
+                      ? 'bg-amber-500 text-white shadow-md scale-105'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {w}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 選択結果 */}
+          {(season || time || weather) && (
+            <div className="mt-8 p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
+              <h3 className="text-lg font-semibold text-gray-700 mb-2">選択中</h3>
+              <p className="text-2xl font-bold text-gray-800">
+                {season && <span className="text-blue-600">{getSeasonText(season)}</span>}
+                {time && <span className="text-green-600">{getTimeText(time)}</span>}
+                {weather && <span className="text-amber-600">{getWeatherText(weather)}</span>}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
